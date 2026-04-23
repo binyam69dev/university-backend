@@ -79,7 +79,7 @@ university-backend/
 **Bash**
 
 ```
-git clone https://github.com/your-username/university-backend.git
+git clone https://github.com/binyam69dev/university-backend.git
 cd university-backend
 npm install
 ```
