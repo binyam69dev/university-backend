@@ -9,28 +9,6 @@
 [![Docker](https://img.shields.io/badge/docker-ready-blue)](https://docker.com/)
 [![License](https://img.shields.io/badge/license-ISC-yellow)](https://opensource.org/licenses/ISC)
 
----
-
-## Table of Contents
-
-* [Overview](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#overview)
-* [Architecture](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#architecture)
-* [Features](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#features)
-* [Technology Stack](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#technology-stack)
-* [Quick Start](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#quick-start)
-* [Docker Deployment](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#docker-deployment)
-* [API Documentation](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#api-documentation)
-* [Environment Variables](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#environment-variables)
-* [Database Schema](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#database-schema)
-* [Security](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#security)
-* [Testing](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#testing)
-* [Performance](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#performance)
-* [Roadmap](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#roadmap)
-* [Contributing](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#contributing)
-* [License](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#license)
-
----
-
 ## Overview
 
 The **University Management System (UMS)** is a comprehensive backend solution built to handle the full complexity of a modern academic institution. It manages students, faculty, courses, enrollments, grades, examinations, attendance, library resources, and internal communications — all through a unified, secure REST API.
