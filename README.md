@@ -1,151 +1,202 @@
+# University Management System — Backend API v3.0
 
-# 🎓 University Management System (UMS) — Backend API v3.0
+> A production-ready, containerized RESTful API engineered for modern university ecosystems — featuring modular domain-driven architecture, enterprise-grade security, and horizontal scalability.
 
-A  **production-ready** , containerized RESTful API engineered for modern university ecosystems with microservices architecture, enterprise-grade security, and horizontal scalability.
-
-(https://nodejs.org/)[https://img.shields.io/badge/node-20%252B-brightgreen](https://img.shields.io/badge/node-20%252B-brightgreen)
-(https://expressjs.com/)[https://img.shields.io/badge/express-4.18-blue](https://img.shields.io/badge/express-4.18-blue)
-(https://mysql.com/)[https://img.shields.io/badge/mysql-8.0-orange](https://img.shields.io/badge/mysql-8.0-orange)
-(https://redis.io/)[https://img.shields.io/badge/redis-7.0-red](https://img.shields.io/badge/redis-7.0-red)
-(https://docker.com/)[https://img.shields.io/badge/docker-ready-blue](https://img.shields.io/badge/docker-ready-blue)
-(https://opensource.org/licenses/ISC)[https://img.shields.io/badge/License-ISC-yellow](https://img.shields.io/badge/License-ISC-yellow)
-
----
-
-## 📋 Table of Contents
-
-* Overview
-* Architecture
-* Features
-* Technology Stack
-* Quick Start
-* Docker Deployment
-* API Documentation
-* Environment Variables
-* Database Schema
-* Security
-* Testing
-* Contributing
-* License
+[![Node](https://img.shields.io/badge/node-20+-brightgreen)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/express-4.18-blue)](https://expressjs.com/)
+[![MySQL](https://img.shields.io/badge/mysql-8.0-orange)](https://mysql.com/)
+[![Redis](https://img.shields.io/badge/redis-7.0-red)](https://redis.io/)
+[![Docker](https://img.shields.io/badge/docker-ready-blue)](https://docker.com/)
+[![License](https://img.shields.io/badge/license-ISC-yellow)](https://opensource.org/licenses/ISC)
 
 ---
 
-## 🎯 Overview
+## Table of Contents
 
-The **University Management System (UMS)** is a comprehensive, enterprise-grade backend solution designed to manage complex academic ecosystems. Built with **Node.js** and  **Express.js** , it provides a robust foundation for handling students, faculty, courses, enrollments, and grades with **role-based access control** and  **real-time capabilities** .
+* [Overview](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#overview)
+* [Architecture](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#architecture)
+* [Features](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#features)
+* [Technology Stack](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#technology-stack)
+* [Quick Start](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#quick-start)
+* [Docker Deployment](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#docker-deployment)
+* [API Documentation](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#api-documentation)
+* [Environment Variables](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#environment-variables)
+* [Database Schema](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#database-schema)
+* [Security](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#security)
+* [Testing](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#testing)
+* [Performance](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#performance)
+* [Roadmap](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#roadmap)
+* [Contributing](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#contributing)
+* [License](https://claude.ai/chat/6f8448b1-e21a-47f5-a8be-f2e3e1e38812#license)
+
+---
+
+## Overview
+
+The **University Management System (UMS)** is a comprehensive backend solution built to handle the full complexity of a modern academic institution. It manages students, faculty, courses, enrollments, grades, examinations, attendance, library resources, and internal communications — all through a unified, secure REST API.
+
+Built with **Node.js** and  **Express.js** , it uses a modular vertical-slice architecture that makes each domain independently scalable and maintainable.
+
+| Property               | Value            |
+| ---------------------- | ---------------- |
+| **Version**      | 3.0.0            |
+| **Release Date** | April 25, 2026   |
+| **Status**       | Production Ready |
 
 ### Key Highlights
 
-* ✅ **Containerized** with Docker for seamless deployment
-* ✅ **JWT Authentication** with role-based access (Admin/Instructor/Student)
-* ✅ **Redis Caching** for sub-millisecond response times
-* ✅ **MySQL Database** with optimized schemas and indexes
-* ✅ **RESTful API** with comprehensive documentation
-* ✅ **Production-Ready** with security middleware and logging
+* Containerized with Docker and docker-compose for seamless multi-service deployment
+* JWT authentication with hierarchical role-based access control (Admin / Instructor / Student)
+* Redis caching for sub-millisecond response times on hot data
+* MySQL 8.0 with optimized schemas, indexes, and connection pooling
+* Real-time capabilities via Socket.IO service
+* Structured logging with Winston
+* Automated report generation and analytics dashboard
 
 ---
 
-## 🏗️ Architecture: Feature-Based (Modular) Design
+## Architecture
 
-### Vertical Slice Architecture
-
-Unlike traditional MVC monoliths, this project utilizes a **Domain-Driven Vertical Slice** architecture where each feature is a self-contained unit.
-
-**text**
+This project uses a **Domain-Driven Vertical Slice** architecture. Unlike traditional MVC monoliths, each feature module owns its own routes, controller, and data access logic — making the codebase easy to navigate, test, and scale independently.
 
 ```
 university-backend/
 │
 ├── src/
-│   ├── config/              # Infrastructure & Configuration
-│   │   ├── database.js      # MySQL connection pool
-│   │   ├── redis.js         # Redis client setup
-│   │   └── migrate.js       # Database migration scripts
+│   ├── app.js                        # Express middleware pipeline
+│   ├── server.js                     # Server entry point and bootstrap
+│   ├── working-app.js                # Alternate app entry (dev/testing)
 │   │
-│   ├── modules/             # 🔥 Domain Engine (Vertical Slices)
-│   │   ├── auth/            # Authentication & Authorization
-│   │   ├── users/           # User management & RBAC
-│   │   ├── courses/         # Course catalog & management
-│   │   ├── enrollments/     # Registration & enrollment
-│   │   └── grades/          # Grading & GPA calculation
+│   ├── config/                       # Infrastructure configuration
+│   │   ├── database.js               # MySQL connection pool
+│   │   ├── redis.js                  # Redis client setup
+│   │   ├── env.js                    # Environment variable loader
+│   │   ├── schema.js                 # Database schema definitions
+│   │   ├── migrate.js                # Migration runner
+│   │   └── complete-migration.js     # Full schema migration script
 │   │
-│   ├── middlewares/         # 🛡️ Global Guards
-│   │   ├── auth.js          # JWT verification
-│   │   ├── security.js      # Helmet, CORS, rate limiting
-│   │   └── errorHandler.js  # Centralized error handling
+│   ├── models/
+│   │   └── BaseModel.js              # Shared base model with query helpers
 │   │
-│   ├── utils/               # 🛠️ Shared Helpers
-│   │   └── logger.js        # Winston logging
+│   ├── middlewares/                  # Global request guards
+│   │   ├── auth.js                   # JWT verification
+│   │   ├── role.middleware.js        # RBAC role enforcement
+│   │   ├── security.js               # Helmet, CORS, rate limiting
+│   │   ├── validation.js             # Joi schema validation
+│   │   └── errorHandler.js           # Centralized error handling
 │   │
-│   ├── app.js               # Express middleware pipeline
-│   └── server.js            # Entry point & bootstrap
+│   ├── modules/                      # Domain modules (vertical slices)
+│   │   ├── auth/                     # Authentication and token management
+│   │   │   ├── auth.controller.js
+│   │   │   ├── auth.service.js
+│   │   │   └── auth.routes.js
+│   │   │
+│   │   ├── users/                    # User accounts and profile management
+│   │   ├── students/                 # Student records and data
+│   │   ├── faculty/                  # Instructor profiles and assignments
+│   │   ├── courses/                  # Course catalog and management
+│   │   ├── enrollments/              # Student-course registration
+│   │   ├── grades/                   # Grade entry and GPA calculation
+│   │   ├── attendance/               # Attendance tracking and reports
+│   │   ├── examinations/             # Exam scheduling and results
+│   │   ├── library/                  # Library resource management
+│   │   ├── reports/                  # Analytics and report generation
+│   │   ├── communications/           # Announcements and notifications
+│   │   └── academics/                # Academic structure
+│   │       ├── departments/          # Department management
+│   │       ├── faculties/            # Faculty/school management
+│   │       └── programs/             # Degree program management
+│   │
+│   ├── services/                     # Shared application services
+│   │   ├── EnrollmentService.js      # Enrollment business logic
+│   │   ├── ReportingService.js       # Report generation engine
+│   │   └── SocketService.js          # Real-time Socket.IO events
+│   │
+│   └── utils/
+│       └── logger.js                 # Winston structured logging
 │
-├── docker-compose.yml       # Multi-container orchestration
-├── Dockerfile               # Container configuration
-└── .env                     # Environment variables
+├── logs/                             # Application log output
+├── uploads/                          # Uploaded files and media
+├── docker-compose.yml                # Multi-container orchestration
+├── Dockerfile                        # Container build configuration
+├── .env                              # Local environment variables
+├── .env.docker                       # Docker-specific environment
+├── .env.example                      # Environment variable template
+├── .dockerignore                     # Docker build exclusions
+└── package.json
 ```
 
 ### Why This Architecture?
 
-| Principle                         | Benefit                                             |
-| --------------------------------- | --------------------------------------------------- |
-| **Domain Encapsulation**    | Each module owns its logic, routes, and data access |
-| **Horizontal Scalability**  | Independent modules scale without conflicts         |
-| **Predictable Maintenance** | Changes are isolated to specific modules            |
-| **Team Productivity**       | Multiple developers work simultaneously             |
+| Principle                         | Benefit                                                         |
+| --------------------------------- | --------------------------------------------------------------- |
+| **Domain Encapsulation**    | Each module owns its routes, controller, and data access        |
+| **Horizontal Scalability**  | Modules can be extracted into microservices independently       |
+| **Predictable Maintenance** | Changes are isolated — no ripple effects across the codebase   |
+| **Team Productivity**       | Multiple developers can work on separate modules simultaneously |
+| **Testability**             | Each slice can be unit and integration tested in isolation      |
 
 ---
 
-## ✨ Core Features
+## Features
 
-### 🔐 Identity & Access Management (IAM)
+### Identity and Access Management
 
-* **Multi-Tenant RBAC:** Hierarchical permissions for Admin, Instructor, and Student roles
-* **Stateless Security:** JWT-based authentication with configurable expiration
-* **Cryptographic Integrity:** bcrypt password hashing (10+ rounds)
-* **Session Management:** Redis-backed token blacklisting
+* Hierarchical RBAC with Admin, Instructor, and Student roles
+* Stateless JWT authentication with configurable token expiry
+* bcrypt password hashing (10+ rounds)
+* Redis-backed token blacklisting for secure logout
 
-### 📚 Academic Management
+### Academic Management
 
-* **Course Management:** Full CRUD operations with instructor mapping
-* **Smart Enrollments:** Prerequisite validation and capacity checking
-* **Automated Grading:** Real-time GPA calculation and transcript generation
-* **Attendance Tracking:** Mark and monitor student attendance
+* Full course catalog with CRUD operations and instructor mapping
+* Smart enrollment with capacity validation
+* Grade entry, GPA calculation, and transcript generation
+* Examination scheduling and result tracking
+* Attendance marking and monitoring per course
 
-### 📊 Analytics & Reporting
+### Institutional Management
 
-* **Dashboard Statistics:** Real-time metrics for administrators
-* **Performance Analytics:** Course completion rates and grade distribution
-* **Export Capabilities:** PDF and Excel report generation
+* Department, faculty, and degree program management
+* Library resource cataloging and access control
+* Internal announcements and communications system
+* Role-scoped dashboard statistics
 
-### 🐳 DevOps & Deployment
+### Analytics and Reporting
 
-* **Docker Containerization:** Multi-service orchestration with docker-compose
-* **Health Checks:** Automated container health monitoring
-* **Persistent Volumes:** Data persistence across container restarts
-* **Environment Configuration:** Flexible .env-based setup
+* Real-time admin dashboard metrics
+* Course completion rates and grade distribution reports
+* Automated report generation via ReportingService
+* Export-ready data structures
+
+### DevOps and Infrastructure
+
+* Docker multi-service orchestration (API, MySQL, Redis, phpMyAdmin)
+* Automated container health checks
+* Persistent volume configuration for data durability
+* Structured JSON logging with Winston
+* Real-time event layer via Socket.IO
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
-| Layer                | Technology   | Version | Purpose                     |
-| -------------------- | ------------ | ------- | --------------------------- |
-| **Runtime**    | Node.js      | 20+     | High-concurrency event loop |
-| **Framework**  | Express.js   | 4.18    | Minimalist web framework    |
-| **Database**   | MySQL        | 8.0     | Relational data persistence |
-| **Cache**      | Redis        | 7.0     | Session storage & caching   |
-| **Auth**       | JWT + bcrypt | -       | Stateless authentication    |
-| **Validation** | Joi          | 17.9    | Schema validation           |
-| **Logging**    | Winston      | 3.10    | Structured logging          |
-| **Container**  | Docker       | 24+     | Containerization            |
-| **ORM/Query**  | mysql2       | 3.6     | Async MySQL driver          |
+| Layer      | Technology   | Version | Purpose                              |
+| ---------- | ------------ | ------- | ------------------------------------ |
+| Runtime    | Node.js      | 20+     | High-concurrency event loop          |
+| Framework  | Express.js   | 4.18    | Web framework and routing            |
+| Database   | MySQL        | 8.0     | Relational data persistence          |
+| Cache      | Redis        | 7.0     | Session storage and hot-data caching |
+| Auth       | JWT + bcrypt | —      | Stateless authentication             |
+| Validation | Joi          | 17.9    | Request schema validation            |
+| Logging    | Winston      | 3.10    | Structured application logging       |
+| Real-time  | Socket.IO    | —      | Live event broadcasting              |
+| Container  | Docker       | 24+     | Service containerization             |
+| DB Driver  | mysql2       | 3.6     | Async MySQL client                   |
 
 ### Key Dependencies
 
-**json**
-
-```
+```json
 {
   "express": "^4.18.2",
   "mysql2": "^3.6.0",
@@ -162,41 +213,37 @@ university-backend/
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-* **Node.js** 20+ or **Docker Desktop**
-* **MySQL** 8.0 (or use Docker)
-* **Redis** 7.0 (or use Docker)
-* **Git** for cloning
+* Node.js 20+ or Docker Desktop
+* MySQL 8.0 (or use Docker)
+* Redis 7.0 (or use Docker)
+* Git
 
-### Local Development Setup
+### 1. Clone the Repository
 
-#### 1. Clone Repository
-
-**bash**
-
-```
+```bash
 git clone https://github.com/binyam69dev/university-backend.git
 cd university-backend
 ```
 
-#### 2. Install Dependencies
+### 2. Install Dependencies
 
-**bash**
-
-```
+```bash
 npm install
 ```
 
-#### 3. Configure Environment
+### 3. Configure Environment
 
-Create `.env` file:
-
-**env**
-
+```bash
+cp .env.example .env
 ```
+
+Then edit `.env` with your values:
+
+```env
 # Server
 PORT=5000
 NODE_ENV=development
@@ -221,24 +268,17 @@ RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX_REQUESTS=100
 ```
 
-#### 4. Initialize Database
+### 4. Initialize the Database
 
-**bash**
-
-```
-# Create database
+```bash
 mysql -u root -p -e "CREATE DATABASE university_db;"
-
-# Run migrations
 npm run db:migrate
 ```
 
-#### 5. Start Server
+### 5. Start the Server
 
-**bash**
-
-```
-# Development (with auto-reload)
+```bash
+# Development with auto-reload
 npm run dev
 
 # Production
@@ -247,34 +287,37 @@ npm start
 
 ### Default Credentials
 
-| Role                 | Email                     | Password      |
-| -------------------- | ------------------------- | ------------- |
-| **Admin**      | admin@university.com      | admin123      |
-| **Student**    | student@university.com    | student123    |
-| **Instructor** | instructor@university.com | instructor123 |
+> Change all default passwords immediately in a production environment.
+
+| Role       | Email                     | Password      |
+| ---------- | ------------------------- | ------------- |
+| Admin      | admin@university.com      | admin123      |
+| Instructor | instructor@university.com | instructor123 |
+| Student    | student@university.com    | student123    |
 
 ---
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 ### Prerequisites
 
-* **Docker Desktop** 4.25+ (Windows/Mac) or **Docker Engine** 24+ (Linux)
-* **4GB RAM** minimum for containers
+* Docker Desktop 4.25+ (Windows/Mac) or Docker Engine 24+ (Linux)
+* 4GB RAM minimum
 
-### Quick Start with Docker
+### Start All Services
 
-**bash**
-
-```
-# Clone repository
+```bash
+# Clone and enter the project
 git clone https://github.com/binyam69dev/university-backend.git
 cd university-backend
 
-# Start all services
+# Copy Docker environment file
+cp .env.docker .env
+
+# Start all containers
 docker-compose up -d
 
-# View logs
+# Stream logs
 docker-compose logs -f
 
 # Stop all services
@@ -283,52 +326,46 @@ docker-compose down
 
 ### Docker Services
 
-| Service              | Container Name        | Port | Purpose             |
-| -------------------- | --------------------- | ---- | ------------------- |
-| **API**        | university-app        | 5000 | Express application |
-| **MySQL**      | university-mysql      | 3306 | Database            |
-| **Redis**      | university-redis      | 6379 | Cache               |
-| **phpMyAdmin** | university-phpmyadmin | 8080 | DB GUI              |
+| Service    | Container             | Port | Purpose             |
+| ---------- | --------------------- | ---- | ------------------- |
+| API        | university-app        | 5000 | Express application |
+| MySQL      | university-mysql      | 3306 | Primary database    |
+| Redis      | university-redis      | 6379 | Cache and sessions  |
+| phpMyAdmin | university-phpmyadmin | 8080 | Database GUI        |
 
-### Docker Commands
+### Useful Docker Commands
 
-**bash**
-
-```
+```bash
 # View running containers
 docker ps
 
-# View API logs
-docker logs university-app
+# Tail API logs
+docker logs university-app -f
 
-# Access container shell
+# Open a shell inside the API container
 docker exec -it university-app sh
 
-# Access MySQL
+# Connect to MySQL inside Docker
 docker exec -it university-mysql mysql -uroot -proot123
 
-# Rebuild after changes
+# Rebuild after code changes
 docker-compose up -d --build
 
-# Stop and remove volumes
+# Remove all containers and volumes
 docker-compose down -v
 ```
 
 ---
 
-## 📡 API Documentation
+## API Documentation
 
 ### Base URL
-
-**text**
 
 ```
 http://localhost:5000
 ```
 
-### Interactive Documentation
-
-**text**
+### Interactive Docs
 
 ```
 http://localhost:5000/api/docs
@@ -336,57 +373,60 @@ http://localhost:5000/api/docs
 
 ### Public Endpoints
 
-| Method   | Endpoint               | Description       |
-| -------- | ---------------------- | ----------------- |
-| `GET`  | `/`                  | API information   |
-| `GET`  | `/health`            | Health check      |
-| `GET`  | `/api/docs`          | API documentation |
-| `POST` | `/api/v1/auth/login` | User login        |
+| Method | Endpoint               | Description                    |
+| ------ | ---------------------- | ------------------------------ |
+| GET    | `/`                  | API info and version           |
+| GET    | `/health`            | Health check                   |
+| GET    | `/api/docs`          | Interactive API documentation  |
+| POST   | `/api/v1/auth/login` | Authenticate and receive token |
 
-### Authentication Required
+### Protected Endpoints (authentication required)
 
-| Method     | Endpoint                           | Role          | Description          |
-| ---------- | ---------------------------------- | ------------- | -------------------- |
-| `GET`    | `/api/v1/courses`                | All           | List all courses     |
-| `GET`    | `/api/v1/courses/:id`            | All           | Get course details   |
-| `POST`   | `/api/v1/courses`                | Admin         | Create course        |
-| `PUT`    | `/api/v1/courses/:id`            | Admin         | Update course        |
-| `DELETE` | `/api/v1/courses/:id`            | Admin         | Delete course        |
-| `GET`    | `/api/v1/users`                  | Admin         | List all users       |
-| `POST`   | `/api/v1/users`                  | Admin         | Create user          |
-| `POST`   | `/api/v1/enrollments`            | Student/Admin | Enroll in course     |
-| `DELETE` | `/api/v1/enrollments/:id`        | Student/Admin | Drop course          |
-| `GET`    | `/api/v1/enrollments/my-courses` | Student       | Get enrolled courses |
-| `PUT`    | `/api/v1/grades/:enrollmentId`   | Instructor    | Update grade         |
-| `GET`    | `/api/v1/grades/my-grades`       | Student       | View grades          |
-| `GET`    | `/api/v1/dashboard/stats`        | Admin         | Dashboard statistics |
+| Method | Endpoint                                 | Role             | Description               |
+| ------ | ---------------------------------------- | ---------------- | ------------------------- |
+| GET    | `/api/v1/courses`                      | All              | List all courses          |
+| GET    | `/api/v1/courses/:id`                  | All              | Get course details        |
+| POST   | `/api/v1/courses`                      | Admin            | Create a course           |
+| PUT    | `/api/v1/courses/:id`                  | Admin            | Update a course           |
+| DELETE | `/api/v1/courses/:id`                  | Admin            | Delete a course           |
+| GET    | `/api/v1/users`                        | Admin            | List all users            |
+| POST   | `/api/v1/users`                        | Admin            | Create a user             |
+| GET    | `/api/v1/students`                     | Admin            | List all students         |
+| GET    | `/api/v1/enrollments/my-courses`       | Student          | Get enrolled courses      |
+| POST   | `/api/v1/enrollments`                  | Student/Admin    | Enroll in a course        |
+| DELETE | `/api/v1/enrollments/:id`              | Student/Admin    | Drop a course             |
+| PUT    | `/api/v1/grades/:enrollmentId`         | Instructor       | Submit or update grade    |
+| GET    | `/api/v1/grades/my-grades`             | Student          | View personal grades      |
+| GET    | `/api/v1/attendance`                   | Instructor/Admin | View attendance records   |
+| POST   | `/api/v1/attendance`                   | Instructor       | Mark attendance           |
+| GET    | `/api/v1/examinations`                 | All              | View examination schedule |
+| GET    | `/api/v1/library`                      | All              | Browse library resources  |
+| GET    | `/api/v1/reports`                      | Admin            | Generate system reports   |
+| GET    | `/api/v1/communications/announcements` | All              | View announcements        |
+| GET    | `/api/v1/academics/departments`        | All              | List departments          |
+| GET    | `/api/v1/academics/programs`           | All              | List degree programs      |
+| GET    | `/api/v1/dashboard/stats`              | Admin            | Dashboard statistics      |
 
 ### Request Examples
 
 #### Login
 
-**bash**
-
-```
+```bash
 curl -X POST http://localhost:5000/api/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"admin@university.com","password":"admin123"}'
 ```
 
-#### Get Courses
+#### Get All Courses
 
-**bash**
-
-```
+```bash
 curl -X GET http://localhost:5000/api/v1/courses \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
-#### Create Course (Admin)
+#### Create a Course (Admin)
 
-**bash**
-
-```
+```bash
 curl -X POST http://localhost:5000/api/v1/courses \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
@@ -400,88 +440,110 @@ curl -X POST http://localhost:5000/api/v1/courses \
   }'
 ```
 
-#### Enroll in Course
+#### Enroll in a Course
 
-**bash**
-
-```
+```bash
 curl -X POST http://localhost:5000/api/v1/enrollments \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"courseId": 1}'
 ```
 
----
+#### Test with PowerShell
 
-## 🔧 Environment Variables
+```powershell
+# Health check
+Invoke-RestMethod -Uri "http://localhost:5000/health"
 
-| Variable                    | Required | Default       | Description             |
-| --------------------------- | -------- | ------------- | ----------------------- |
-| `PORT`                    | No       | 5000          | Server port             |
-| `NODE_ENV`                | No       | development   | Environment mode        |
-| `DB_HOST`                 | Yes      | localhost     | MySQL host              |
-| `DB_PORT`                 | No       | 3306          | MySQL port              |
-| `DB_USER`                 | Yes      | root          | MySQL user              |
-| `DB_PASSWORD`             | Yes      | -             | MySQL password          |
-| `DB_NAME`                 | Yes      | university_db | Database name           |
-| `REDIS_HOST`              | Yes      | localhost     | Redis host              |
-| `REDIS_PORT`              | No       | 6379          | Redis port              |
-| `JWT_SECRET`              | Yes      | -             | JWT signing key         |
-| `BCRYPT_ROUNDS`           | No       | 10            | Password hash rounds    |
-| `RATE_LIMIT_WINDOW_MS`    | No       | 900000        | Rate window (ms)        |
-| `RATE_LIMIT_MAX_REQUESTS` | No       | 100           | Max requests per window |
+# Login
+$body = '{"email":"admin@university.com","password":"admin123"}'
+$login = Invoke-RestMethod -Uri "http://localhost:5000/api/v1/auth/login" -Method POST -Body $body -ContentType "application/json"
+
+# Get courses with token
+$courses = Invoke-RestMethod -Uri "http://localhost:5000/api/v1/courses" -Headers @{Authorization = "Bearer $($login.token)"}
+```
 
 ---
 
-## 🗄️ Database Schema
+## Environment Variables
+
+| Variable                    | Required | Default       | Description                       |
+| --------------------------- | -------- | ------------- | --------------------------------- |
+| `PORT`                    | No       | 5000          | Server port                       |
+| `NODE_ENV`                | No       | development   | Environment mode                  |
+| `DB_HOST`                 | Yes      | localhost     | MySQL host                        |
+| `DB_PORT`                 | No       | 3306          | MySQL port                        |
+| `DB_USER`                 | Yes      | root          | MySQL username                    |
+| `DB_PASSWORD`             | Yes      | —            | MySQL password                    |
+| `DB_NAME`                 | Yes      | university_db | Database name                     |
+| `REDIS_HOST`              | Yes      | localhost     | Redis host                        |
+| `REDIS_PORT`              | No       | 6379          | Redis port                        |
+| `JWT_SECRET`              | Yes      | —            | JWT signing secret (min 32 chars) |
+| `BCRYPT_ROUNDS`           | No       | 10            | Password hash rounds              |
+| `RATE_LIMIT_WINDOW_MS`    | No       | 900000        | Rate limit window in milliseconds |
+| `RATE_LIMIT_MAX_REQUESTS` | No       | 100           | Max requests per window           |
+
+---
+
+## Database Schema
 
 ### Core Tables
 
-| Table           | Description                  |
-| --------------- | ---------------------------- |
-| `users`       | User accounts with roles     |
-| `students`    | Student-specific data        |
-| `instructors` | Faculty information          |
-| `courses`     | Course catalog               |
-| `enrollments` | Student-course registrations |
-| `grades`      | Student grades               |
-| `audit_logs`  | System audit trail           |
+| Table                 | Description                                 |
+| --------------------- | ------------------------------------------- |
+| `users`             | All user accounts with roles                |
+| `students`          | Student-specific records and academic info  |
+| `instructors`       | Faculty profiles and department assignments |
+| `courses`           | Course catalog with capacity and scheduling |
+| `enrollments`       | Student-course registration records         |
+| `grades`            | Grade entries linked to enrollments         |
+| `attendance`        | Per-session attendance records              |
+| `examinations`      | Exam schedules and result entries           |
+| `departments`       | Academic department structure               |
+| `faculties`         | Faculty/school groupings                    |
+| `programs`          | Degree program definitions                  |
+| `library_resources` | Library catalog entries                     |
+| `announcements`     | Institution-wide communications             |
+| `audit_logs`        | Critical operation audit trail              |
 
-### ER Diagram
-
-**text**
+### Entity Relationships
 
 ```
 users (id, email, password_hash, role, first_name, last_name)
     ↓
-students (id, user_id, student_id, program, enrollment_year)
+students (id, user_id, student_id, program_id, enrollment_year)
     ↓
-enrollments (id, student_id, course_id, status, grade)
+enrollments (id, student_id, course_id, status)
     ↓
-courses (id, course_code, title, credits, capacity)
+grades (id, enrollment_id, score, letter_grade, gpa_points)
+
+courses (id, course_code, title, credits, capacity, department_id)
     ↓
-grades (id, enrollment_id, score, letter_grade)
+examinations (id, course_id, date, type, max_score)
+
+departments (id, name, faculty_id)
+    ↓
+programs (id, name, department_id, duration_years)
 ```
 
 ---
 
-## 🛡️ Security
+## Security
 
-### Implemented Security Measures
+| Measure          | Implementation                               |
+| ---------------- | -------------------------------------------- |
+| Password hashing | bcrypt with 10 rounds                        |
+| Authentication   | Stateless JWT with configurable expiry       |
+| Authorization    | Role middleware enforced per route           |
+| Input validation | Joi schema validation on all request bodies  |
+| SQL injection    | Parameterized queries via mysql2             |
+| XSS protection   | Input sanitization middleware                |
+| Security headers | Helmet.js                                    |
+| CORS             | Configurable origin whitelist                |
+| Rate limiting    | Per-role request limits                      |
+| Audit trail      | Critical operations logged to `audit_logs` |
 
-| Measure                      | Implementation                   |
-| ---------------------------- | -------------------------------- |
-| **Password Hashing**   | bcrypt (10 rounds)               |
-| **JWT Authentication** | Stateless tokens with expiration |
-| **Input Validation**   | Joi schema validation            |
-| **SQL Injection**      | Parameterized queries            |
-| **XSS Protection**     | Input sanitization               |
-| **CORS**               | Configurable origin whitelist    |
-| **Rate Limiting**      | Per-role request limits          |
-| **Helmet.js**          | Security headers                 |
-| **Audit Logging**      | Critical operation tracking      |
-
-### Rate Limits
+### Rate Limits by Role
 
 | Role       | Max Requests | Window     |
 | ---------- | ------------ | ---------- |
@@ -492,13 +554,9 @@ grades (id, enrollment_id, score, letter_grade)
 
 ---
 
-## 🧪 Testing
+## Testing
 
-### Run Tests
-
-**bash**
-
-```
+```bash
 # Unit tests
 npm test
 
@@ -509,117 +567,70 @@ npm run test:integration
 npm run test:coverage
 ```
 
-### Test API with PowerShell
+---
 
-**powershell**
+## Performance
 
-```
-# Health check
-Invoke-RestMethod -Uri "http://localhost:5000/health"
-
-# Login
-$body = '{"email":"admin@university.com","password":"admin123"}'
-$login = Invoke-RestMethod -Uri "http://localhost:5000/api/v1/auth/login" -Method POST -Body $body -ContentType "application/json"
-
-# Get courses
-$courses = Invoke-RestMethod -Uri "http://localhost:5000/api/v1/courses" -Headers @{Authorization = "Bearer $($login.token)"}
-```
+| Metric                     | Value  |
+| -------------------------- | ------ |
+| API response time (cached) | < 50ms |
+| Database query time        | < 10ms |
+| Redis operations           | < 1ms  |
+| Concurrent users supported | 1,000+ |
+| Container startup time     | < 30s  |
 
 ---
 
-## 📊 Performance Metrics
+## Roadmap
 
-| Metric                        | Value           |
-| ----------------------------- | --------------- |
-| **Response Time (API)** | < 50ms (cached) |
-| **Concurrent Users**    | 1000+           |
-| **Database Queries**    | < 10ms          |
-| **Redis Operations**    | < 1ms           |
-| **Container Startup**   | < 30s           |
+### v3.0 — Current
+
+* Docker containerization
+* Redis caching layer
+* Interactive API documentation
+* Admin dashboard analytics
+* Real-time Socket.IO service
+
+### v3.1 — Planned
+
+* WebSocket push notifications
+* Email notification service
+* File upload improvements
+* Payment and fee integration
+
+### v4.0 — Future
+
+* Full microservices extraction
+* GraphQL API layer
+* Mobile API gateway
+* AI-powered grade and enrollment recommendations
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-We welcome contributions! Please follow these steps:
+Contributions are welcome. Please follow this workflow:
 
-1. **Fork** the repository
-2. **Create** feature branch: `git checkout -b feature/amazing-feature`
-3. **Commit** changes: `git commit -m 'feat: add amazing feature'`
-4. **Push** to branch: `git push origin feature/amazing-feature`
-5. **Open** a Pull Request
+```bash
+git checkout -b feature/your-feature
+git commit -m "feat: describe your change"
+git push origin feature/your-feature
+```
+
+Then open a Pull Request against `main`.
 
 ### Commit Convention
 
-Use [Conventional Commits](https://www.conventionalcommits.org/):
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
-* `feat:` New feature
-* `fix:` Bug fix
-* `docs:` Documentation
-* `refactor:` Code refactor
-* `test:` Test updates
-* `chore:` Maintenance
-
----
-
-## 📄 License
-
-This project is licensed under the **ISC License** - see the [LICENSE](https://license/) file for details.
+* `feat:` — new feature
+* `fix:` — bug fix
+* `docs:` — documentation update
+* `refactor:` — code restructure without behavior change
+* `test:` — test additions or updates
+* `chore:` — maintenance and tooling
 
 ---
 
-## 🙏 Acknowledgments
-
-* **Express.js** community for the amazing framework
-* **Node.js** for the runtime environment
-* **Docker** for containerization
-* **Open Source** contributors
-
----
-
-## 📞 Support
-
-| Issue                   | Contact                                                                |
-| ----------------------- | ---------------------------------------------------------------------- |
-| **Bug Reports**   | [GitHub Issues](https://github.com/binyam69dev/university-backend/issues) |
-| **Documentation** | [API Docs](http://localhost:5000/api/docs)                                |
-| **Email**         | support@university-system.com                                          |
-
----
-
-## 🎯 Roadmap
-
-### Version 3.0 (Current)
-
-* ✅ Docker containerization
-* ✅ Redis caching
-* ✅ API documentation
-* ✅ Dashboard analytics
-
-### Version 3.1 (Planned)
-
-* 🔄 WebSocket notifications
-* 🔄 File upload service
-* 🔄 Email notifications
-* 🔄 Payment integration
-
-### Version 4.0 (Future)
-
-* ⏳ Microservices architecture
-* ⏳ GraphQL support
-* ⏳ Mobile API gateway
-* ⏳ AI-powered recommendations
-
----
-
-## ⭐ Show Your Support
-
-If this project helped you, please give it a ⭐ on GitHub!
-
----
-
-**Built with ❤️ by Binyam | [GitHub](https://github.com/binyam69dev) | [University Management System](https://github.com/binyam69dev/university-backend)**
-
----
-
-*Last Updated: April 2026 | Version 3.0.0*
+|  |  |
+| - | - |
